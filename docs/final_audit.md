@@ -25,3 +25,9 @@
 12. **GitHub URL.** `https://github.com/Jason-Wang313/26_contingency_skeletons_for_long_horizon_tasks`
 
 13. **Visible Desktop PDF status.** pending orchestrator copy
+
+## Orchestrator Desktop Copy
+
+Checked: 2026-06-11 20:28:45 +01:00
+Downloads PDF: C:/Users/wangz/Downloads/26.pdf
+Result: copy script exit 0 log C:\Users\wangz\robotics_60_paper_batch\logs\desktop_copy_26_20260611_202842.log
