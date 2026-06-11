@@ -37,3 +37,7 @@ Recovery steps:
 
 Next:
 - None.
+
+Exit code: 0
+End time: 2026-06-11 20:28:42 +01:00
+PDF exists: True
