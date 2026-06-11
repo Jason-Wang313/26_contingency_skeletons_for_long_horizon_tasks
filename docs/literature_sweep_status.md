@@ -1,0 +1,68 @@
+# Literature Sweep Status
+
+- Started literature sweep.
+- OpenAlex 1/49 page 1: PDDLStream Integrating Symbolic Planners and Blackbox Samplers -> 161 unique works
+- OpenAlex 2/49 page 1: STRIPStream Integrating Symbolic Planners and Blackbox Samplers -> 169 unique works
+- OpenAlex 3/49 page 1: FFRob Leveraging Symbolic Planning for Efficient Task and Motion Planning -> 223 unique works
+- OpenAlex 4/49 page 1: Hierarchical Task and Motion Planning in the Now -> 414 unique works
+- OpenAlex 5/49 page 1: Integrated Task and Motion Planning in Belief Space -> 579 unique works
+- OpenAlex 6/49 page 1: Logic-Geometric Programming An Optimization-Based Approach to Combined Task and Motion Planning -> 729 unique works
+- OpenAlex 7/49 page 1: A Constraint-Based Approach to Integrated Task and Motion Planning -> 863 unique works
+- OpenAlex 8/49 page 1: Robotics Task and Motion Planning A Survey -> 1008 unique works
+- OpenAlex 9/49 page 1: Behavior Trees in Robotics and AI An Introduction -> 1173 unique works
+- OpenAlex 10/49 page 1: A Survey of Behavior Trees in Robotics and AI -> 1254 unique works
+- OpenAlex 11/49 page 1: Contingent Planning via Heuristic Forward Search with Implicit Belief States -> 1448 unique works
+- OpenAlex 12/49 page 1: Conformant Planning via Symbolic Model Checking -> 1610 unique works
+- OpenAlex 13/49 page 1: Planning Algorithms LaValle motion planning -> 1742 unique works
+- OpenAlex 14/49 page 1: Probabilistic Roadmaps for Path Planning in High-Dimensional Configuration Spaces -> 1863 unique works
+- OpenAlex 15/49 page 1: Sampling-based algorithms for optimal motion planning -> 1983 unique works
+- OpenAlex 16/49 page 1: task and motion planning robotics -> 2116 unique works
+- OpenAlex 16/49 page 2: task and motion planning robotics -> 2259 unique works
+- OpenAlex 17/49 page 1: integrated task and motion planning manipulation -> 2350 unique works
+- OpenAlex 17/49 page 2: integrated task and motion planning manipulation -> 2492 unique works
+- OpenAlex 18/49 page 1: TAMP robot manipulation planning -> 2592 unique works
+- OpenAlex 18/49 page 2: TAMP robot manipulation planning -> 2717 unique works
+- OpenAlex 19/49 page 1: PDDLStream robotics planning -> 2724 unique works
+- OpenAlex 20/49 page 1: STRIPStream task motion planning -> 2725 unique works
+- OpenAlex 21/49 page 1: FFRob symbolic geometric planning -> 2736 unique works
+- OpenAlex 22/49 page 1: logic geometric programming robot planning -> 2832 unique works
+- OpenAlex 22/49 page 2: logic geometric programming robot planning -> 2987 unique works
+- OpenAlex 23/49 page 1: stream based task and motion planning -> 3095 unique works
+- OpenAlex 23/49 page 2: stream based task and motion planning -> 3259 unique works
+- OpenAlex 24/49 page 1: long horizon robot manipulation planning -> 3361 unique works
+- OpenAlex 24/49 page 2: long horizon robot manipulation planning -> 3504 unique works
+- OpenAlex 25/49 page 1: robot rearrangement planning long horizon -> 3612 unique works
+- OpenAlex 25/49 page 2: robot rearrangement planning long horizon -> 3774 unique works
+- OpenAlex 26/49 page 1: contingency planning robotics -> 3921 unique works
+- OpenAlex 26/49 page 2: contingency planning robotics -> 4100 unique works
+- OpenAlex 27/49 page 1: contingent planning robot execution -> 4235 unique works
+- OpenAlex 27/49 page 2: contingent planning robot execution -> 4418 unique works
+- OpenAlex 28/49 page 1: conditional planning robotics manipulation -> 4507 unique works
+- OpenAlex 28/49 page 2: conditional planning robotics manipulation -> 4651 unique works
+- OpenAlex 29/49 page 1: failure recovery robot task planning -> 4753 unique works
+- OpenAlex 29/49 page 2: failure recovery robot task planning -> 4892 unique works
+- OpenAlex 30/49 page 1: execution monitoring robot planning -> 4989 unique works
+- OpenAlex 30/49 page 2: execution monitoring robot planning -> 5102 unique works
+- OpenAlex 31/49 page 1: behavior trees robotics manipulation -> 5147 unique works
+- OpenAlex query failed: 'behavior trees robotics manipulation' page 2: HTTP Error 429: Too Many Requests
+- OpenAlex query failed: 'hierarchical task network robotics planning' page 1: HTTP Error 429: Too Many Requests
+- OpenAlex query failed: 'robot task planning physical constraints' page 1: HTTP Error 429: Too Many Requests
+- OpenAlex query failed: 'planning under uncertainty robot manipulation' page 1: HTTP Error 429: Too Many Requests
+- OpenAlex query failed: 'belief space task and motion planning' page 1: HTTP Error 429: Too Many Requests
+- OpenAlex query failed: 'POMDP task and motion planning robotics' page 1: HTTP Error 429: Too Many Requests
+- OpenAlex query failed: 'symbolic geometric planning robotics' page 1: HTTP Error 429: Too Many Requests
+- OpenAlex query failed: 'manipulation planning contact uncertainty' page 1: HTTP Error 429: Too Many Requests
+- OpenAlex query failed: 'mobile manipulation task and motion planning' page 1: HTTP Error 429: Too Many Requests
+- OpenAlex query failed: 'robot cooking task planning manipulation' page 1: HTTP Error 429: Too Many Requests
+- OpenAlex query failed: 'temporal logic robotics planning manipulation' page 1: HTTP Error 429: Too Many Requests
+- OpenAlex query failed: 'affordance based robot task planning' page 1: HTTP Error 429: Too Many Requests
+- OpenAlex query failed: 'robot planning with geometric constraints' page 1: HTTP Error 429: Too Many Requests
+- OpenAlex query failed: 'replanning robot manipulation failure' page 1: HTTP Error 429: Too Many Requests
+- OpenAlex query failed: 'task skeleton planning robotics' page 1: HTTP Error 429: Too Many Requests
+- OpenAlex query failed: 'contingent FF planning implicit belief states' page 1: HTTP Error 429: Too Many Requests
+- OpenAlex query failed: 'conformant planning symbolic model checking' page 1: HTTP Error 429: Too Many Requests
+- OpenAlex query failed: 'fully observable nondeterministic planning robotics' page 1: HTTP Error 429: Too Many Requests
+- OpenAlex query failed: 'robot planning robustness behavior tree fallback' page 1: HTTP Error 429: Too Many Requests
+- Final unique works: 5147
+- Rows written to related_work_matrix.csv: 5147
+- Matrix content digest: 28c1f16fd3749c36
