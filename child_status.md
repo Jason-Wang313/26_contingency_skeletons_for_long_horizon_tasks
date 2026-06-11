@@ -1,28 +1,32 @@
 # Child Status
 
-Stage: final audit written
+Stage: repo pushed
 
 Latest actions:
-- Verified `C:/Users/wangz/Downloads/26.pdf` exists.
-- Verified `C:\\Users\\wangz\\OneDrive\\Desktop\\26.pdf` is not present yet.
-- Verified the target GitHub repo did not already exist.
-- Wrote `docs/final_audit.md`.
+- Committed the complete artifact.
+- Created public GitHub repository `26_contingency_skeletons_for_long_horizon_tasks`.
+- Pushed `master` to `origin`.
 
 Commands run:
-- `Test-Path` / `Get-Item` checks for Downloads and Desktop PDFs.
-- `gh repo view Jason-Wang313/26_contingency_skeletons_for_long_horizon_tasks --json nameWithOwner,visibility,url`
+- `git add -A`
+- `git commit -m "Create guarded contingency skeletons paper"`
+- `gh repo create 26_contingency_skeletons_for_long_horizon_tasks --public --source . --remote origin --push`
 
 Findings:
-- Downloads PDF exists at the required exact path.
-- Desktop copy status is `pending orchestrator copy`.
-- Target GitHub repo was not found before creation.
+- Initial commit: `3553afd`.
+- GitHub URL: `https://github.com/Jason-Wang313/26_contingency_skeletons_for_long_horizon_tasks`
+- Downloads PDF exists at `C:/Users/wangz/Downloads/26.pdf`.
+- Desktop copy remains `pending orchestrator copy`.
 
 Failures:
-- `gh repo view` returned repository-not-found, expected before creation.
-- Prior nonblocking OpenAlex 429s are documented.
+- First LaTeX build failed due to missing `definition` theorem declaration; fixed and rebuilt.
+- Several later OpenAlex queries returned HTTP 429 after the literature matrix already exceeded 1000 rows.
+- Pre-create `gh repo view` returned repository-not-found, as expected.
 
 Recovery steps:
-- None needed.
+- Added `\\newtheorem{definition}{Definition}` and reran the full LaTeX build.
+- Treated OpenAlex 429s as nonblocking and documented them in `docs/literature_sweep_status.md`.
+- Created the repository after confirming it was absent.
 
 Next:
-- Commit the complete artifact and create/push the public GitHub repository.
+- Run final verification and push this status update if needed.
