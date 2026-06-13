@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import csv
+from dataclasses import replace
 import math
 import sys
 from collections import defaultdict
@@ -12,7 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from guarded_skeletons import evaluate_problem, make_problem  # noqa: E402
+from guarded_skeletons import evaluate_noisy_guarded, evaluate_problem, make_problem  # noqa: E402
 
 
 RESULTS = ROOT / "results"
@@ -135,6 +136,126 @@ def write_table(summary: list[dict[str, str]]) -> None:
     (RESULTS / "evidence_table.tex").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def run_guard_assumption_stress() -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    horizon = 64
+    reuse_bias = 0.55
+    episodes = 200
+    seeds = list(range(30))
+    for seed in seeds:
+        problem = make_problem(
+            horizon=horizon,
+            num_guards=16,
+            dependency_width=2,
+            reuse_bias=reuse_bias,
+            irreversible_rate=0.35,
+            seed=1000 * horizon + int(reuse_bias * 100) + seed,
+        )
+        result = evaluate_problem(problem, episodes=episodes, seed=seed + 17)
+        replan = result["replan_on_failure"]
+        for probe_cost in [0.08, 0.50, 1.00, 2.00, 4.00, 6.00]:
+            stressed = replace(problem, probe_cost=probe_cost)
+            gcs_cost = stressed.horizon * stressed.action_cost + len(stressed.relevant_guards) * probe_cost
+            rows.append(
+                {
+                    "stress": "probe_cost",
+                    "level": f"{probe_cost:.2f}",
+                    "seed": str(seed),
+                    "gcs_cost": f"{gcs_cost:.4f}",
+                    "gcs_failures": "0.0000",
+                    "replan_cost": f"{replan['cost']:.4f}",
+                    "delta_vs_replan": f"{gcs_cost - replan['cost']:.4f}",
+                }
+            )
+        for guard_error_rate in [0.00, 0.05, 0.10, 0.20, 0.40, 0.80, 1.00]:
+            noisy = evaluate_noisy_guarded(
+                problem,
+                episodes=episodes,
+                seed=seed + 17,
+                guard_error_rate=guard_error_rate,
+            )
+            rows.append(
+                {
+                    "stress": "guard_error",
+                    "level": f"{guard_error_rate:.2f}",
+                    "seed": str(seed),
+                    "gcs_cost": f"{noisy['cost']:.4f}",
+                    "gcs_failures": f"{noisy['failures']:.4f}",
+                    "replan_cost": f"{replan['cost']:.4f}",
+                    "delta_vs_replan": f"{noisy['cost'] - replan['cost']:.4f}",
+                }
+            )
+    fields = ["stress", "level", "seed", "gcs_cost", "gcs_failures", "replan_cost", "delta_vs_replan"]
+    with (RESULTS / "guard_assumption_stress.csv").open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(rows)
+    return rows
+
+
+def summarize_guard_assumption_stress(rows: list[dict[str, str]]) -> list[dict[str, str]]:
+    groups: dict[tuple[str, str], list[dict[str, str]]] = defaultdict(list)
+    for row in rows:
+        groups[(row["stress"], row["level"])].append(row)
+    summary: list[dict[str, str]] = []
+    for (stress, level), vals in sorted(groups.items(), key=lambda item: (item[0][0], float(item[0][1]))):
+        costs = [float(v["gcs_cost"]) for v in vals]
+        failures = [float(v["gcs_failures"]) for v in vals]
+        replans = [float(v["replan_cost"]) for v in vals]
+        deltas = [float(v["delta_vs_replan"]) for v in vals]
+        summary.append(
+            {
+                "stress": stress,
+                "level": level,
+                "seeds": str(len(vals)),
+                "mean_gcs_cost": f"{sum(costs) / len(costs):.4f}",
+                "mean_gcs_failures": f"{sum(failures) / len(failures):.4f}",
+                "mean_replan_cost": f"{sum(replans) / len(replans):.4f}",
+                "mean_delta_vs_replan": f"{sum(deltas) / len(deltas):.4f}",
+            }
+        )
+    fields = [
+        "stress",
+        "level",
+        "seeds",
+        "mean_gcs_cost",
+        "mean_gcs_failures",
+        "mean_replan_cost",
+        "mean_delta_vs_replan",
+    ]
+    with (RESULTS / "guard_assumption_stress_summary.csv").open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(summary)
+    selected = [
+        ("probe_cost", "0.08"),
+        ("probe_cost", "4.00"),
+        ("probe_cost", "6.00"),
+        ("guard_error", "0.20"),
+        ("guard_error", "0.80"),
+        ("guard_error", "1.00"),
+    ]
+    by_key = {(row["stress"], row["level"]): row for row in summary}
+    lines = [
+        "\\begin{tabular}{llrrr}",
+        "\\toprule",
+        "Stress & Level & GCS cost & Failures & $\\Delta$ vs replan \\\\",
+        "\\midrule",
+    ]
+    for stress, level in selected:
+        row = by_key[(stress, level)]
+        label = "probe cost" if stress == "probe_cost" else "guard error"
+        display = f"{float(level):.2f}" if stress == "probe_cost" else f"{100 * float(level):.0f}\\%"
+        lines.append(
+            f"{label} & {display} & {float(row['mean_gcs_cost']):.2f} & "
+            f"{float(row['mean_gcs_failures']):.2f} & {float(row['mean_delta_vs_replan']):+.2f} \\\\"
+        )
+    lines.extend(["\\bottomrule", "\\end{tabular}", ""])
+    table = "\n".join(lines)
+    (RESULTS / "guard_assumption_stress_table.tex").write_text(table, encoding="utf-8")
+    return summary
+
+
 def plot(summary: list[dict[str, str]]) -> None:
     try:
         import matplotlib.pyplot as plt
@@ -174,17 +295,22 @@ def plot(summary: list[dict[str, str]]) -> None:
         plt.close(fig)
 
 
-def write_status(summary: list[dict[str, str]]) -> None:
+def write_status(summary: list[dict[str, str]], stress_summary: list[dict[str, str]]) -> None:
     gcs64 = next(r for r in summary if r["horizon"] == "64" and r["reuse_bias"] == "0.55" and r["method"] == "guarded_skeleton")
     replan64 = next(r for r in summary if r["horizon"] == "64" and r["reuse_bias"] == "0.55" and r["method"] == "replan_on_failure")
     tree64 = next(r for r in summary if r["horizon"] == "64" and r["reuse_bias"] == "0.55" and r["method"] == "relevant_unshared_tree")
+    probe6 = next(r for r in stress_summary if r["stress"] == "probe_cost" and r["level"] == "6.00")
+    error100 = next(r for r in stress_summary if r["stress"] == "guard_error" and r["level"] == "1.00")
     lines = [
         "# Experiment Status",
         "",
         "- Synthetic guard-deterministic TAMP abstraction completed.",
         f"- At horizon 64 / reuse 0.55, guarded skeleton cost {float(gcs64['mean_cost']):.2f} vs replan-on-failure {float(replan64['mean_cost']):.2f}.",
         f"- At horizon 64 / reuse 0.55, guarded skeleton nodes {float(gcs64['mean_representation_size']):.0f} vs relevant unshared tree {float(tree64['mean_representation_size']):.0f}.",
+        f"- V2 probe-cost stress: when probe cost is 6.00, GCS cost {float(probe6['mean_gcs_cost']):.2f}, delta vs replan {float(probe6['mean_delta_vs_replan']):+.2f}.",
+        f"- V2 guard-error stress: when guards are always flipped, noisy GCS cost {float(error100['mean_gcs_cost']):.2f}, delta vs replan {float(error100['mean_delta_vs_replan']):+.2f}.",
         "- Outputs: `results/episodes.csv`, `results/summary.csv`, `results/evidence_table.tex`, and `paper/figures/*.pdf` if matplotlib is available.",
+        "- V2 outputs: `results/guard_assumption_stress.csv`, `results/guard_assumption_stress_summary.csv`, and `results/guard_assumption_stress_table.tex`.",
     ]
     (RESULTS / "experiment_status.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -194,9 +320,11 @@ def main() -> int:
     write_csv(rows)
     summary = summarize(rows)
     write_table(summary)
+    stress_rows = run_guard_assumption_stress()
+    stress_summary = summarize_guard_assumption_stress(stress_rows)
     plot(summary)
-    write_status(summary)
-    print(f"Wrote {len(rows)} episode aggregate rows and {len(summary)} summary rows")
+    write_status(summary, stress_summary)
+    print(f"Wrote {len(rows)} episode aggregate rows, {len(summary)} summary rows, and {len(stress_rows)} stress rows")
     return 0
 
 
