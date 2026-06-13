@@ -35,3 +35,6 @@ The runnable artifact must show concrete data structures, dispatch, dominance/sh
 
 ## Attack 12: Can physical guards be tested safely?
 Only if the guard is cheap/reversible by domain design. The assumption is central and false in some domains.
+
+## Attack 13: What if guard tests are expensive or wrong?
+The v2 stress makes this a limitation, not a hidden premise. At probe cost 6.00, GCS is 14.79 cost units worse than replan-on-failure; with 100% flipped guard observations, noisy GCS is 4.66 worse. The paper must claim a compact representation for cheap calibrated guards, not a robust guard-learning system.

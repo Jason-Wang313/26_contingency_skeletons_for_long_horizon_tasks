@@ -1,43 +1,36 @@
 # Child Status
 
-Stage: complete
+Stage: v2 hardening complete
 
 Latest actions:
-- Committed the complete artifact.
-- Created public GitHub repository `26_contingency_skeletons_for_long_horizon_tasks`.
-- Pushed `master` to `origin`.
-- Verified the public repo, final PDF, literature row count, experiment status, and build status.
+- Added v2 guard-assumption stress for expensive probes and noisy guards.
+- Rebuilt the paper with a visible v2 hardening note and stress table.
+- Copied the canonical PDF to `C:/Users/wangz/Downloads/26.pdf`.
+- Removed local `paper/main.pdf` after canonical copy.
 
 Commands run:
-- `git add -A`
-- `git commit -m "Create guarded contingency skeletons paper"`
-- `gh repo create 26_contingency_skeletons_for_long_horizon_tasks --public --source . --remote origin --push`
-- `gh repo view Jason-Wang313/26_contingency_skeletons_for_long_horizon_tasks --json nameWithOwner,visibility,url`
-- `git commit -m "Update final child status"`
-- `git push`
+- `python experiments/run_guarded_skeletons.py`
+- `powershell -ExecutionPolicy Bypass -File scripts/build_paper.ps1`
 
 Findings:
-- Latest pushed branch: `master`.
 - GitHub URL: `https://github.com/Jason-Wang313/26_contingency_skeletons_for_long_horizon_tasks`
-- Repository visibility: `PUBLIC`.
-- Downloads PDF exists at `C:/Users/wangz/Downloads/26.pdf`.
-- Desktop copy remains `pending orchestrator copy`.
+- Downloads PDF exists at `C:/Users/wangz/Downloads/26.pdf`, size 200396 bytes.
+- Desktop copies are absent.
+- Local `paper/main.pdf` is absent.
 - `docs/related_work_matrix.csv` has 5147 data rows plus header.
-- Paper build succeeded and copied the final PDF.
+- V2 probe-cost stress: probe cost 6.00 makes GCS 14.79 worse than replan-on-failure.
+- V2 guard-error stress: 100% flipped guards make noisy GCS 4.66 worse than replan-on-failure.
 
 Failures:
-- First LaTeX build failed due to missing `definition` theorem declaration; fixed and rebuilt.
-- Several later OpenAlex queries returned HTTP 429 after the literature matrix already exceeded 1000 rows.
-- Pre-create `gh repo view` returned repository-not-found, as expected.
+- Initial v2 stress run timed out because it recomputed full baselines too often.
+- Original v1 build script left local `paper/main.pdf`.
 
 Recovery steps:
-- Added `\\newtheorem{definition}{Definition}` and reran the full LaTeX build.
-- Treated OpenAlex 429s as nonblocking and documented them in `docs/literature_sweep_status.md`.
-- Created the repository after confirming it was absent.
+- Optimized the stress runner to reuse the per-seed replan baseline.
+- Patched the build script to return nonzero on failures and remove local `paper/main.pdf` after copying.
 
 Next:
-- None.
+- Commit and push v2 hardening, then update batch trackers.
 
-Exit code: 0
-End time: 2026-06-11 20:28:42 +01:00
+End time: 2026-06-13 04:45:39 +01:00
 PDF exists: True

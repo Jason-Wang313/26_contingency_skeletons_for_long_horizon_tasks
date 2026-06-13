@@ -13,28 +13,28 @@ pdflatex -interaction=nonstopmode -halt-on-error main.tex
 if ($LASTEXITCODE -ne 0) {
   Add-Content -Path $Status -Value "`n- First pdflatex failed with exit code $LASTEXITCODE. See paper/main.log."
   Pop-Location
-  exit 0
+  exit 1
 }
 
 bibtex main
 if ($LASTEXITCODE -ne 0) {
   Add-Content -Path $Status -Value "`n- BibTeX failed with exit code $LASTEXITCODE. See paper/main.blg."
   Pop-Location
-  exit 0
+  exit 1
 }
 
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
 if ($LASTEXITCODE -ne 0) {
   Add-Content -Path $Status -Value "`n- Second pdflatex failed with exit code $LASTEXITCODE. See paper/main.log."
   Pop-Location
-  exit 0
+  exit 1
 }
 
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
 if ($LASTEXITCODE -ne 0) {
   Add-Content -Path $Status -Value "`n- Third pdflatex failed with exit code $LASTEXITCODE. See paper/main.log."
   Pop-Location
-  exit 0
+  exit 1
 }
 
 Pop-Location
@@ -44,8 +44,11 @@ if (Test-Path (Join-Path $Paper "main.pdf")) {
   Copy-Item -LiteralPath (Join-Path $Paper "main.pdf") -Destination $DownloadsPdf -Force
   Add-Content -Path $Status -Value "`n- Build succeeded."
   Add-Content -Path $Status -Value "`n- Copied final PDF to $DownloadsPdf."
+  Remove-Item -LiteralPath (Join-Path $Paper "main.pdf") -Force
+  Add-Content -Path $Status -Value "`n- Removed local paper/main.pdf after canonical copy."
 } else {
   Add-Content -Path $Status -Value "`n- Build ended without paper/main.pdf."
+  exit 1
 }
 
 exit 0

@@ -14,20 +14,16 @@
 
 7. **Proof/formal-claim status.** The paper proves two conditional propositions: finite-candidate coverage for guard-deterministic domains with sound/exhaustive guards, and an exponential representation-size separation from unshared contingency trees when local guard dependence is sparse. It does not prove complete candidate generation, real-robot safety, noisy-guard correctness, or POMDP optimality.
 
-8. **Strongest evidence.** The runnable synthetic embodied abstraction shows that at horizon 64 and reuse bias 0.55, GCS has expected cost 65.26 versus 143.81 for replan-on-failure, with 273 representation nodes versus 3,820,748 for a relevant unshared contingency tree.
+8. **Strongest evidence.** The runnable synthetic embodied abstraction shows that at horizon 64 and reuse bias 0.55, GCS has expected cost 65.26 versus 143.81 for replan-on-failure, with 273 representation nodes versus 3,820,748 for a relevant unshared contingency tree. V2 guard-assumption stress shows the boundary: at probe cost 6.00, GCS costs 158.60 and is 14.79 worse than replan; with 100% flipped guard observations, noisy GCS costs 148.46 and is 4.66 worse than replan.
 
-9. **Biggest weaknesses.** Guards are assumed known, binary, deterministic, and safe to test. The experiment is synthetic. The method is a representation/compilation mechanism rather than a full TAMP solver. Real robot execution, learned guard discovery, and integration with production TAMP systems remain unsupported.
+9. **Biggest weaknesses.** Guards are assumed known, binary, cheap, calibrated, deterministic, and safe to test. The experiment is synthetic. The method is a representation/compilation mechanism rather than a full TAMP solver. Real robot execution, learned guard discovery, noisy-guard handling, and integration with production TAMP systems remain unsupported.
 
-10. **Paper-readiness judgment.** Workshop or revise. The idea is coherent and runnable, but the evidence is too synthetic for a strong main-conference robotics claim without real domains or integration with a mature TAMP backend.
+10. **Paper-readiness judgment.** Workshop-only / strong-revise. The idea is coherent and runnable, but the evidence is too synthetic for a strong main-conference robotics claim without real domains, calibrated guard tests, or integration with a mature TAMP backend.
 
-11. **Exact Downloads PDF path.** `C:/Users/wangz/Downloads/26.pdf`
+11. **Exact Downloads PDF path.** `C:/Users/wangz/Downloads/26.pdf` (present, 200396 bytes)
 
 12. **GitHub URL.** `https://github.com/Jason-Wang313/26_contingency_skeletons_for_long_horizon_tasks`
 
-13. **Visible Desktop PDF status.** pending orchestrator copy
+13. **Visible Desktop PDF status.** absent (expected; canonical PDF stays in Downloads)
 
-## Orchestrator Desktop Copy
-
-Checked: 2026-06-11 20:28:45 +01:00
-Downloads PDF: C:/Users/wangz/Downloads/26.pdf
-Result: copy script exit 0 log C:\Users\wangz\robotics_60_paper_batch\logs\desktop_copy_26_20260611_202842.log
+14. **Local repository PDF status.** `paper/main.pdf` absent after canonical copy

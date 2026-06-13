@@ -103,6 +103,36 @@ def guarded_episode(problem: Problem, assignment: tuple[int, ...], probe_all: bo
     return {"cost": cost, "failures": float(failures)}
 
 
+def noisy_guarded_episode(
+    problem: Problem,
+    assignment: tuple[int, ...],
+    guard_error_rate: float,
+    rng: random.Random,
+) -> dict[str, float]:
+    cost = 0.0
+    failures = 0
+    observed: dict[int, int] = {}
+    for step in problem.steps:
+        for gid in step.guard_ids:
+            if gid not in observed:
+                cost += problem.probe_cost
+                value = assignment[gid]
+                if rng.random() < guard_error_rate:
+                    value = 1 - value
+                observed[gid] = value
+        cost += problem.action_cost
+        observed_signature = tuple(observed[gid] for gid in step.guard_ids)
+        true_signature = action_signature(step, assignment)
+        if observed_signature != true_signature:
+            failures += 1
+            penalty = problem.failure_penalty * (1.5 if step.irreversible else 1.0)
+            cost += penalty + problem.repair_penalty
+            for gid in step.guard_ids:
+                observed[gid] = assignment[gid]
+            cost += problem.action_cost
+    return {"cost": cost, "failures": float(failures)}
+
+
 def gcs_size(problem: Problem) -> int:
     branch_nodes = len(problem.relevant_guards)
     action_variants = 0
@@ -153,3 +183,25 @@ def evaluate_problem(problem: Problem, episodes: int, seed: int) -> dict[str, di
         "representation_size": float(full_tree_size(problem, relevant_only=True)),
     }
     return totals
+
+
+def evaluate_noisy_guarded(
+    problem: Problem,
+    episodes: int,
+    seed: int,
+    guard_error_rate: float,
+) -> dict[str, float]:
+    rng = random.Random(seed)
+    noise_rng = random.Random(seed * 1009 + int(guard_error_rate * 10000))
+    total_cost = 0.0
+    total_failures = 0.0
+    for _ in range(episodes):
+        assignment = sample_assignment(problem, rng)
+        values = noisy_guarded_episode(problem, assignment, guard_error_rate, noise_rng)
+        total_cost += values["cost"]
+        total_failures += values["failures"]
+    return {
+        "cost": total_cost / episodes,
+        "failures": total_failures / episodes,
+        "representation_size": float(gcs_size(problem)),
+    }

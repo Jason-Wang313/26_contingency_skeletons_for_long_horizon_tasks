@@ -23,8 +23,11 @@
 
 \maketitle
 
+\paragraph{Submission-hardening version: v2.}
+This revision adds guard-assumption stress tests for the two central requirements: cheap probes and reliable guards.  At horizon 64, raising probe cost to 6.00 makes GCS cost 158.60, which is 14.79 worse than replan-on-failure; flipping every guard observation makes noisy GCS cost 148.46, which is 4.66 worse than replan-on-failure.  The claim is therefore conditional on cheap, calibrated, safe-to-test guards.
+
 \begin{abstract}
-Long-horizon task-and-motion planning (TAMP) systems often search for one symbolic skeleton and then ask continuous planners, samplers, or execution monitors to make it work.  This is brittle when the correct high-level skeleton depends on physical branch conditions such as clearance, reachability, slip, or fixture state that are cheap to test but expensive to discover by failed execution.  We propose guarded contingency skeletons: compact decision DAGs whose internal branch nodes are measurable physical guards and whose leaves are task-motion skeleton fragments with continuous feasibility certificates.  The mechanism changes the central planning object from a single linear skeleton to a guard-indexed family of shared skeletons.  We formalize guard-deterministic TAMP abstractions, prove coverage for a finite candidate set under sound and exhaustive guards, and show an exponential representation-size separation from unshared contingency trees when each action depends on only a sparse subset of reused guards.  In a synthetic embodied manipulation abstraction, guarded skeletons reduce horizon-64 expected execution cost from 143.81 for replan-on-failure to 65.26 while using 273 nodes instead of 3.82 million nodes for an unshared relevant-guard contingency tree.  The evidence is intentionally modest: it supports a representation mechanism and a failure mode, not real-robot readiness.
+Long-horizon task-and-motion planning (TAMP) systems often search for one symbolic skeleton and then ask continuous planners, samplers, or execution monitors to make it work.  This is brittle when the correct high-level skeleton depends on physical branch conditions such as clearance, reachability, slip, or fixture state that are cheap to test but expensive to discover by failed execution.  We propose guarded contingency skeletons: compact decision DAGs whose internal branch nodes are measurable physical guards and whose leaves are task-motion skeleton fragments with continuous feasibility certificates.  The mechanism changes the central planning object from a single linear skeleton to a guard-indexed family of shared skeletons.  We formalize guard-deterministic TAMP abstractions, prove coverage for a finite candidate set under sound and exhaustive guards, and show an exponential representation-size separation from unshared contingency trees when each action depends on only a sparse subset of reused guards.  In a synthetic embodied manipulation abstraction, guarded skeletons reduce horizon-64 expected execution cost from 143.81 for replan-on-failure to 65.26 while using 273 nodes instead of 3.82 million nodes for an unshared relevant-guard contingency tree.  A v2 stress test shows the boundary: expensive probes or systematically wrong guards can make GCS worse than replanning.  The evidence is intentionally modest: it supports a representation mechanism and a failure mode, not real-robot readiness.
 \end{abstract}
 
 \section{Introduction}
@@ -117,6 +120,16 @@ We sweep horizons $H\in\{8,16,32,48,64\}$, reuse biases in $\{0.25,0.55,0.85\}$,
 \paragraph{Results.}
 Figure~\ref{fig:main-results} and Table~\ref{tab:evidence} show the intended failure mode.  At horizon 64, GCS has expected cost 65.26 and no failed actions because it tests relevant guards before commitment.  Replan-on-failure has expected cost 143.81 and 16.16 failed actions per episode.  The relevant unshared tree matches GCS execution cost, because it also knows the relevant guards, but it stores 3,820,748 nodes versus 273 for GCS.  This supports the paper's limited mechanism claim: when guard dependence is sparse and repeated, a skeleton DAG can keep the useful contingency without enumerating complete assignments.
 
+\paragraph{V2 guard-assumption stress.}
+The main experiment grants exactly the assumptions used by the propositions: guards are cheap and correct.  We stress those assumptions at horizon 64 and reuse bias 0.55.  Table~\ref{tab:guard-stress} shows two failure boundaries.  First, when the cost of a guard probe rises to 6.00, GCS costs 158.60 and loses to replan-on-failure by 14.79.  Second, when guard observations are systematically wrong, noisy GCS costs 148.46 and loses by 4.66.  Moderate noise is less damaging, but the result narrows the claim: GCS is a useful representation only when guard tests are cheap enough and calibrated enough to be trusted before commitment.
+
+\begin{table}[t]
+\centering
+\caption{V2 guard-assumption stress at horizon 64 and reuse bias 0.55.  $\Delta$ vs replan is positive when stressed GCS is worse than replan-on-failure.}
+\label{tab:guard-stress}
+\input{../results/guard_assumption_stress_table.tex}
+\end{table}
+
 \section{Discussion}
 
 \paragraph{Why the broken assumption matters.}
@@ -126,7 +139,7 @@ The literature sweep found a recurring hidden assumption: a linear skeleton can 
 GCS is not the first conditional plan, not the first behavior tree, and not the first TAMP representation.  The novelty is the compilation unit: continuous physical feasibility dependencies become branch guards inside a compact skeleton DAG.  This gives a representation-level middle ground between one linear skeleton and a full belief/contingency policy.
 
 \paragraph{Limitations.}
-The current implementation assumes guards are binary, known, safe to test, and deterministic.  Real physical systems need guard discovery, multi-valued and continuous tests, noisy observations, and integration with actual TAMP solvers.  The experiment is synthetic and should be read as evidence for a mechanism and a pressure point, not as a benchmark result.
+The current implementation assumes guards are binary, known, safe to test, cheap, and deterministic.  The v2 stress shows that this assumption is not cosmetic: high probe costs or badly calibrated guards can make GCS worse than simply replanning after failure.  Real physical systems need guard discovery, multi-valued and continuous tests, noisy-observation handling, confidence thresholds, and integration with actual TAMP solvers.  The experiment is synthetic and should be read as evidence for a mechanism and a pressure point, not as a benchmark result.
 
 \section{Conclusion}
 
@@ -151,6 +164,8 @@ The ICLR style files were downloaded from the official ICLR Master-Template repo
 \section{Additional Experiment Detail}
 
 The experiment reports aggregate rows in \texttt{results/summary.csv}.  The hidden guard probability for each generated problem is sampled uniformly in $[0.25,0.75]$.  The probe cost is $0.08$, the action cost is $1.0$, the failed-action penalty is $4.0$, and irreversible steps multiply the failure penalty by $1.5$.  These constants are not tuned for a particular baseline; they make the qualitative cost of late failure visible.
+
+The v2 stress rows are in \texttt{results/guard\_assumption\_stress.csv}; the aggregate stress summary is in \texttt{results/guard\_assumption\_stress\_summary.csv}.  The stress varies probe cost and guard-observation error while keeping the horizon-64, reuse-0.55 setting fixed.
 
 \section{Audit Of Formal Scope}
 
