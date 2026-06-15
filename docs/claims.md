@@ -2,16 +2,19 @@
 
 | Claim | Status | Support | Caveat |
 |---|---|---|---|
-| GCS is complete for a finite set of candidate skeletons in guard-deterministic domains with sound, exhaustive guards. | Formal claim with proof sketch in the paper. | Each guard assignment dispatches to a skeleton whose physical certificates cover that assignment. | Does not imply completeness for arbitrary TAMP domains or missing candidates. |
-| GCS can be exponentially smaller than an unshared full contingency tree when actions depend on sparse/reused guard variables. | Formal representation-size proposition plus synthetic measurement. | A tree repeats suffixes for guard assignments; a DAG shares guard-equivalent suffixes. | Worst case can still be exponential if every suffix is guard-unique. |
-| Early physical guards reduce failed irreversible actions compared with linear skeleton execution and replan-on-failure in the synthetic domain. | Empirical claim. | `experiments/run_guarded_skeletons.py` produces cost/failure tables. | Synthetic only; no real robot validation. |
-| GCS depends on cheap and reliable guard tests. | Supported as a v2 limitation. | Probe-cost stress: cost 6.00 makes GCS 14.79 worse than replan. Guard-error stress: 100% flipped guards make noisy GCS 4.66 worse than replan. | Needs calibrated, safe-to-test guards or fallback to replanning/belief handling. |
-| The mechanism is not just behavior trees. | Argumentative claim. | BTs provide execution syntax; GCS synthesizes branch placement from physical guard dependencies and skeleton dominance. | A strong BT synthesis paper could narrow this boundary. |
-| The mechanism is not just belief-space TAMP. | Argumentative claim. | GCS requires guard coverage, not calibrated probabilities; probabilities are optional for expected cost. | Does not solve general partial observability. |
+| GCS is complete for a finite set of candidate skeletons in guard-deterministic domains with sound, exhaustive guards. | Formal conditional claim. | Proposition and proof in `paper/main.tex`. | Does not imply candidate generation, arbitrary TAMP completeness, noisy-guard correctness, or missing-guard coverage. |
+| GCS can be much smaller than an unshared contingency tree under sparse local guard dependence. | Formal proposition plus v3 measurement. | Family A: eager GCS averages 293,649 nodes versus 79.10 billion for no-sharing GCS. | Dense dependencies inflate GCS size; compactness is conditional. |
+| Early physical guard testing reduces failed execution in the synthetic abstraction when guards are cheap and reliable. | Empirical v3 claim. | Family A: eager GCS cost 58.45 versus replan 92.51 and linear default 312.54. | Synthetic only; not a real robot or production TAMP benchmark. |
+| Eager GCS is not universally better than replan. | Empirical v3 boundary. | At probe cost 6.0, eager GCS cost 157.60 and is 48.53 worse than replan. At 100% guard error, eager GCS cost 149.26 and is 35.34 worse than replan. | Lazy, thresholded, and robust variants help in some regimes but do not remove the core assumptions. |
+| The mechanism is not merely behavior trees. | Narrow novelty claim. | Family D explicitly includes behavior-tree fallback; it can match clean execution cost, while GCS contributes synthesized guard-dependency sharing and formal coverage boundaries. | Strong behavior-tree synthesis could narrow this distinction. |
+| The mechanism is not general belief-space TAMP. | Scope claim. | GCS uses deterministic guard assignments and optional expected-cost policies; it does not optimize a POMDP. | Belief-space planning remains the right baseline for general partial observability. |
 
 ## Unsupported Claims That Must Not Be Made
+
 - Real-robot transfer.
+- Safety certification.
 - Superiority over production TAMP solvers.
 - Learned guard discovery from raw perception.
 - General POMDP optimality.
 - Complete coverage of all possible physical failures.
+- Universal superiority of eager testing over replanning.

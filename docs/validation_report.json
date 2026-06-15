@@ -1,0 +1,41 @@
+{
+  "paper": 26,
+  "stage": "v3_final_full_scale",
+  "timestamp": "2026-06-15 05:32:44 +01:00",
+  "experiment": {
+    "script": "experiments/full_scale_gcs.py",
+    "seed": 26026,
+    "elapsed_seconds": 491.51912800001446,
+    "total_rows": 79305,
+    "total_cases": 10135,
+    "plot_failures": 0
+  },
+  "final_pdf": {
+    "path": "C:/Users/wangz/Downloads/26.pdf",
+    "pages": 25,
+    "bytes": 371778,
+    "sha256": "A36A75140750716A0D4E61DD4D59A7251AF27F6780FC0DDC5FA522AF61D8AAB9",
+    "local_paper_main_pdf_present": false
+  },
+  "checks": {
+    "python_py_compile_full_scale_gcs": true,
+    "latex_undefined_references": false,
+    "latex_undefined_citations": false,
+    "latex_overfull_boxes": false,
+    "pdf_text_contains_v3_marker": true,
+    "pdf_text_contains_row_count": true,
+    "pdf_text_contains_case_count": true,
+    "pdf_text_contains_probe_cost_boundary": true,
+    "pdf_text_contains_guard_error_boundary": true,
+    "pdf_text_contains_no_real_robot_scope": true
+  },
+  "headline_results": {
+    "family_a_gcs_eager_cost": 58.45,
+    "family_a_replan_cost": 92.51,
+    "family_a_linear_default_cost": 312.54,
+    "family_a_gcs_eager_nodes": 293649,
+    "family_a_no_sharing_nodes": 79098245241,
+    "probe_cost_6_gcs_eager_delta_vs_replan": 48.53,
+    "guard_error_100_gcs_eager_delta_vs_replan": 35.34
+  }
+}

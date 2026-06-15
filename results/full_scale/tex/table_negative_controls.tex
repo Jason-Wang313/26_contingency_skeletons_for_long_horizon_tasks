@@ -1,0 +1,34 @@
+\begin{tabular}{lrrr}
+\toprule
+Control & Method & Cost & Nodes \\
+\midrule
+zero\_failure\_penalty & replan\_on\_failure & 78.233333 & 64.0 \\
+zero\_failure\_penalty & gcs\_eager & 65.262667 & 272.783 \\
+zero\_failure\_penalty & gcs\_lazy & 65.262667 & 300.062 \\
+zero\_failure\_penalty & no\_sharing\_gcs & 65.262667 & 3874815.0 \\
+expensive\_probe & replan\_on\_failure & 110.95 & 64.0 \\
+expensive\_probe & gcs\_eager & 191.066667 & 272.883 \\
+expensive\_probe & gcs\_lazy & 99.8625 & 300.172 \\
+expensive\_probe & no\_sharing\_gcs & 191.066667 & 4091083.8 \\
+dense\_all\_guards & replan\_on\_failure & 88.091667 & 64.0 \\
+dense\_all\_guards & gcs\_eager & 65.28 & 16401.0 \\
+dense\_all\_guards & gcs\_lazy & 65.28 & 18041.1 \\
+dense\_all\_guards & no\_sharing\_gcs & 65.28 & 4325375.0 \\
+no\_reuse & replan\_on\_failure & 110.616667 & 64.0 \\
+no\_reuse & gcs\_eager & 65.28 & 273.0 \\
+no\_reuse & gcs\_lazy & 65.28 & 300.3 \\
+no\_reuse & no\_sharing\_gcs & 65.28 & 4325375.0 \\
+all\_upfront & replan\_on\_failure & 70.625 & 64.0 \\
+all\_upfront & gcs\_eager & 64.64 & 16393.0 \\
+all\_upfront & gcs\_lazy & 64.64 & 18032.3 \\
+all\_upfront & no\_sharing\_gcs & 64.64 & 16895.0 \\
+reversible\_failures & replan\_on\_failure & 82.871875 & 64.0 \\
+reversible\_failures & gcs\_eager & 65.265333 & 272.817 \\
+reversible\_failures & gcs\_lazy & 65.265333 & 300.098 \\
+reversible\_failures & no\_sharing\_gcs & 65.265333 & 3946904.6 \\
+missing\_all\_guards & replan\_on\_failure & 385.0625 & 64.0 \\
+missing\_all\_guards & gcs\_eager & 323.95 & 272.883 \\
+missing\_all\_guards & gcs\_lazy & 323.95 & 300.172 \\
+missing\_all\_guards & no\_sharing\_gcs & 323.95 & 4091083.8 \\
+\bottomrule
+\end{tabular}

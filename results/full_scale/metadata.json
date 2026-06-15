@@ -1,0 +1,52 @@
+{
+  "stage": "complete",
+  "seed": 26026,
+  "elapsed_seconds": 491.51912800001446,
+  "total_rows": 79305,
+  "total_cases": 10135,
+  "plot_failures": 0,
+  "families": [
+    {
+      "family": "family_a",
+      "rows": 34560,
+      "cases": 4320,
+      "seconds": 187.24734219996026
+    },
+    {
+      "family": "family_b",
+      "rows": 9600,
+      "cases": 1600,
+      "seconds": 52.55830869998317
+    },
+    {
+      "family": "family_c",
+      "rows": 5400,
+      "cases": 1080,
+      "seconds": 39.59986270003719
+    },
+    {
+      "family": "family_d",
+      "rows": 18225,
+      "cases": 1215,
+      "seconds": 130.06639619998168
+    },
+    {
+      "family": "family_e",
+      "rows": 3600,
+      "cases": 600,
+      "seconds": 22.0163188999868
+    },
+    {
+      "family": "family_f",
+      "rows": 2520,
+      "cases": 420,
+      "seconds": 22.257722300011665
+    },
+    {
+      "family": "family_g",
+      "rows": 5400,
+      "cases": 900,
+      "seconds": 28.353506300016306
+    }
+  ]
+}
