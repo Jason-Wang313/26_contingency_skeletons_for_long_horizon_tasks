@@ -1,6 +1,6 @@
 # Submission Attack Log
 
-Updated: 2026-06-15 05:32:44 +01:00
+Updated: 2026-06-20
 
 ## Attack Rounds
 
@@ -12,6 +12,10 @@ Updated: 2026-06-15 05:32:44 +01:00
 6. Coverage attack: missing guards invalidate the formal guarantee. Response: Family E/G explicitly stress missing coverage and record failure cases.
 7. Baseline attack: behavior trees can test conditions before action. Response: Family D includes a behavior-tree fallback proxy and frames novelty as synthesized shared skeleton representation.
 8. Artifact attack: local PDFs and transient logs should not be treated as final. Response: final PDF is verified in Downloads; local `paper/main.pdf` and run stdout/stderr logs are removed before commit.
+9. Visual artifact attack: link highlights must match the VLA-v4 role-model
+   PDF explicitly. Response: added explicit VLA-style boxed-link policy,
+   rebuilt the Downloads PDF, inventoried all link annotations, and inspected
+   rendered affected pages.
 
 ## V3 Outcome
 

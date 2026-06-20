@@ -23,4 +23,6 @@ Decision: final v3 synthetic mechanism paper under the current batch standard.
 - `C:/Users/wangz/Downloads/26.pdf`
 - 25 pages.
 - 371778 bytes.
-- SHA256 `A36A75140750716A0D4E61DD4D59A7251AF27F6780FC0DDC5FA522AF61D8AAB9`.
+- SHA256 `7D31075ED0F6CC9DF9AFFE14C3D7D9621EF43285D64E20E281B7E3C02E582BC9`.
+- VLA-style link boxes verified: green citations, red internal references, no
+  cyan boxes, one-point borders.

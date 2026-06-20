@@ -1,5 +1,16 @@
 # Paper 26 Full-Scale Execution Plan
 
+## 2026-06-20 Visual-Hardening Addendum
+
+The final v3 manuscript was rebuilt with the explicit VLA role-model hyperref
+policy for boxed links. The Downloads artifact remains 25 pages and is now:
+
+- Path: `C:/Users/wangz/Downloads/26.pdf`
+- Size: 371778 bytes
+- SHA256: `7D31075ED0F6CC9DF9AFFE14C3D7D9621EF43285D64E20E281B7E3C02E582BC9`
+- Link-box inventory: green = 32, red = 15, cyan = 0, with one-point borders
+  on all 47 link annotations.
+
 ## Current Claim
 
 The current v2 paper proposes Guarded Contingency Skeletons (GCS): compact decision DAGs for long-horizon task-and-motion planning where internal branch nodes are measurable physical guard predicates and leaves/fragments are task-motion skeleton pieces. The core thesis is that some long-horizon robot tasks should not commit to one linear symbolic skeleton and repair geometric failures late. Instead, the planning artifact should carry a compact set of physical contingencies when the branch conditions are cheap and safe to test.

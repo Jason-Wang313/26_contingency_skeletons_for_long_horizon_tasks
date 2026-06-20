@@ -9,7 +9,9 @@
 - Final PDF: `C:/Users/wangz/Downloads/26.pdf`.
 - Final PDF pages: 25.
 - Final PDF bytes: 371778.
-- Final PDF SHA256: `A36A75140750716A0D4E61DD4D59A7251AF27F6780FC0DDC5FA522AF61D8AAB9`.
+- Final PDF SHA256: `7D31075ED0F6CC9DF9AFFE14C3D7D9621EF43285D64E20E281B7E3C02E582BC9`.
+- Final PDF link boxes: green citations = 32, red internal references = 15,
+  cyan = 0, with one-point borders on all 47 link annotations.
 
 ## Family Inventory
 

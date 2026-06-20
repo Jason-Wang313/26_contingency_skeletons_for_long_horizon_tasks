@@ -10,9 +10,11 @@
 - [x] Canonical PDF path is `C:/Users/wangz/Downloads/26.pdf`.
 - [x] Canonical PDF pages: 25.
 - [x] Canonical PDF bytes: 371778.
-- [x] Canonical PDF SHA256: `A36A75140750716A0D4E61DD4D59A7251AF27F6780FC0DDC5FA522AF61D8AAB9`.
+- [x] Canonical PDF SHA256: `7D31075ED0F6CC9DF9AFFE14C3D7D9621EF43285D64E20E281B7E3C02E582BC9`.
 - [x] Local `paper/main.pdf` removed after canonical copy.
 - [x] Visible Desktop PDF copies are absent.
+- [x] VLA-style link boxes verified with pypdf inventory and rendered-page
+  visual inspection.
 
 Recommended verification commands:
 

@@ -7,8 +7,11 @@ Anonymous research artifact for paper 26 in the robotics/embodied-intelligence b
 - Canonical PDF: `C:/Users/wangz/Downloads/26.pdf`.
 - Page count: 25.
 - PDF bytes: 371778.
-- PDF SHA256: `A36A75140750716A0D4E61DD4D59A7251AF27F6780FC0DDC5FA522AF61D8AAB9`.
+- PDF SHA256: `7D31075ED0F6CC9DF9AFFE14C3D7D9621EF43285D64E20E281B7E3C02E582BC9`.
 - Local `paper/main.pdf`: intentionally absent after export.
+- Link-box audit: VLA-style one-point boxes are explicit; citation links use
+  green boxes, internal references use red boxes, and no cyan URL boxes are
+  present.
 - Full-scale suite: 79,305 method-condition rows over 10,135 deterministic cases, seed 26026, zero plot failures.
 
 ## Contents
