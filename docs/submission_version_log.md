@@ -1,5 +1,16 @@
 # Submission Version Log
 
+## v4 visual link-box hardening - 2026-06-20
+
+- Added explicit VLA role-model `hyperref` boxed-link policy to
+  `paper/main.tex`.
+- Rebuilt the final PDF and exported it to `C:/Users/wangz/Downloads/26.pdf`.
+- Verified final PDF: 25 pages, 371778 bytes, SHA256
+  `7D31075ED0F6CC9DF9AFFE14C3D7D9621EF43285D64E20E281B7E3C02E582BC9`.
+- Verified link annotation colors: green = 32, red = 15, cyan = 0, with
+  one-point borders on all 47 link annotations.
+- Removed local `paper/main.pdf` after canonical export.
+
 ## v3 - 2026-06-15
 
 - Wrote `docs/full_scale_execution_plan.md` before v3 substantive work.
@@ -10,7 +21,8 @@
 - Rewrote and expanded `paper/main.tex` into a 25-page final manuscript.
 - Added extended audit content: complete horizon ledger, reuse ledger, topology baseline audit, probe-cost break-even, guard-error calibration, coverage/spurious-guard ledger, proof invariants, data integrity notes, and deployment protocol.
 - Built final PDF and copied it to `C:/Users/wangz/Downloads/26.pdf`.
-- Verified final PDF: 25 pages, 371778 bytes, SHA256 `A36A75140750716A0D4E61DD4D59A7251AF27F6780FC0DDC5FA522AF61D8AAB9`.
+- Verified v3 PDF before the 2026-06-20 visual-hardening rebuild: 25 pages,
+  371778 bytes, SHA256 `A36A75140750716A0D4E61DD4D59A7251AF27F6780FC0DDC5FA522AF61D8AAB9`.
 - Removed local `paper/main.pdf` after canonical export.
 
 ## v2 - 2026-06-13

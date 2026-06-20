@@ -24,8 +24,12 @@
 
 12. **Exact Downloads PDF path.** `C:/Users/wangz/Downloads/26.pdf`
 
-13. **Downloads PDF verification.** 25 pages, 371778 bytes, SHA256 `A36A75140750716A0D4E61DD4D59A7251AF27F6780FC0DDC5FA522AF61D8AAB9`.
+13. **Downloads PDF verification.** 25 pages, 371778 bytes, SHA256 `7D31075ED0F6CC9DF9AFFE14C3D7D9621EF43285D64E20E281B7E3C02E582BC9`.
 
 14. **Visible Desktop PDF status.** absent (expected; canonical PDF stays in Downloads).
 
 15. **Local repository PDF status.** `paper/main.pdf` absent after canonical copy.
+
+16. **VLA-style link-box audit.** All 47 link annotations use one-point
+    borders; citation boxes are green, internal-reference boxes are red, no
+    cyan boxes are present, and rendered affected pages were visually inspected.
